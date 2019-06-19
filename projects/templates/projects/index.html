@@ -1,0 +1,29 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+	<head>
+		<link rel="stylesheet" type="text/css" href="{% static "projects/bootstrap-4.3.1-dist/css/bootstrap.min.css" %}">
+		<script src="{% static "projects/bootstrap-4.3.1-dist/js/bootstrap.min.js" %}"></script>
+	</head>
+	<body>
+			{% if project_list %}
+			    {% for project in project_list %}
+			    <div style="padding-bottom: 5px;">
+					<a href="/projects/{{ project.id }}/">{{ project.name }}</a>
+				</div>
+			    {% endfor %}
+			{% else %}
+			    <p>No projects are available.</p>
+			{% endif %}
+			<div style="padding-bottom: 5px;">
+				<a class="btn btn-primary" href="/projects/create/" role="button">New Project</a>
+			</div>
+			<div style="padding-bottom: 5px;">
+				<a class="btn btn-secondary" href="/projects/sign-out/" role="button">Sign Out</a>
+			</div>
+	  		<div>
+	  			<a class="btn btn-danger" href="/projects/delete-account/" role="button">Delete Account</a>
+	  		</div>
+	</body>
+</html>
+

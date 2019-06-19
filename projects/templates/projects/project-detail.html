@@ -1,0 +1,25 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+	<head>
+		<link rel="stylesheet" type="text/css" href="{% static "projects/bootstrap-4.3.1-dist/css/bootstrap.min.css" %}">
+		<script src="{% static "projects/bootstrap-4.3.1-dist/js/bootstrap.min.js" %}"></script>
+	</head>
+	<body>
+			{% if task_list %}
+			    {% for task in task_list %}
+			    <div style="padding-bottom: 5px;">
+			    	<a href="/projects/{{ project.id }}/tasks/{{ task.id }}">{{ task.name }}</a>
+				</div>
+			    {% endfor %}
+			{% else %}
+			    <p>No tasks are available.</p>
+			{% endif %}
+			<div style="padding-bottom: 5px;">
+				<a class="btn btn-primary" href="/projects/{{project.id}}/tasks/create" role="button">New Task</a>
+			</div>
+			<div>
+				<a class="btn btn-danger" href="/projects/{{project.id}}/delete/" role="button">Delete Project</a>
+			</div>
+	</body>
+</html>

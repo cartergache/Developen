@@ -1,0 +1,13 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+	<head>
+		<link rel="stylesheet" type="text/css" href="{% static "projects/bootstrap-4.3.1-dist/css/bootstrap.min.css" %}">
+		<script src="{% static "projects/bootstrap-4.3.1-dist/js/bootstrap.min.js" %}"></script>
+	</head>
+	<body>
+		<div>
+			<a class="btn btn-danger" href="/projects/{{project.id}}/tasks/{{task.id}}/delete" role="button">Delete Task</a>
+		</div>
+	</body>
+</html>
