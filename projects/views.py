@@ -20,6 +20,7 @@ def index(request):
 	else:
 		return redirect('/projects/sign-in/')
 
+'''
 def sign_in(request):
 	if request.method == 'POST':
 		form = SignInForm(request.POST)
@@ -42,6 +43,7 @@ def sign_in(request):
 		form = SignInForm()
     
 	return render(request, 'projects/sign-in.html', {'form': form})
+'''
 
 def sign_out(request):
 	logout(request)
@@ -138,12 +140,34 @@ def project_detail(request, project_id):
 def home(request):
 	user = request.user
 	userStatus = user.is_authenticated
-	if not userStatus:
-		userName = 'Anonymous User'
-	else:
-		userName = user.first_name
+	userName = user.get_username()
 
-	return render(request, 'projects/home.html', {'userStatus': userStatus, 'userName': userName})
+	if userStatus:
+		userName = user.get_short_name()
+
+
+
+	if request.method == 'POST':
+		form = SignInForm(request.POST)
+
+		if form.is_valid():
+			username = form.cleaned_data['username']
+			password = form.cleaned_data['password']
+
+			user = authenticate(request, username=username, password=password)
+
+			if user is not None:
+				login(request, user)
+				userStatus = user.is_authenticated
+				userName = user.get_short_name()
+
+			else:
+				form = SignInForm()
+				return render(request, 'projects/sign-in.html', {'form': form})
+	else:
+		form = SignInForm()
+
+	return render(request, 'projects/home.html', {'userStatus': userStatus, 'userName': userName, 'form': form})
 
 def create_task(request, project_id):
 	if request.method == 'POST':
